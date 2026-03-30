@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>红书猎手 RedBook Hunter - 精准捕获小红书达人</title>
     <meta name="description" content="红书猎手 - 小红书蒲公英KOL智能采集工具，一键采集，轻松筛选，让优质KOL无处遁形">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #FF2442;
@@ -33,6 +35,52 @@
             overflow-x: hidden;
         }
         
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem 2rem;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        
+        .nav-logo i {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+        
+        .nav-links a:hover {
+            color: white;
+        }
+        
         /* Hero Section */
         .hero {
             min-height: 100vh;
@@ -42,6 +90,7 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
+            padding-top: 80px;
         }
         
         .hero::before {
@@ -49,7 +98,7 @@
             position: absolute;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,36,66,0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255,36,66,0.15) 0%, transparent 70%);
             animation: pulse 4s ease-in-out infinite;
         }
         
@@ -65,10 +114,22 @@
             max-width: 900px;
         }
         
-        .logo {
-            font-size: 4rem;
-            margin-bottom: 1rem;
+        .logo-icon {
+            width: 120px;
+            height: 120px;
+            background: var(--gradient);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            box-shadow: 0 20px 60px rgba(255,36,66,0.4);
             animation: float 3s ease-in-out infinite;
+        }
+        
+        .logo-icon i {
+            font-size: 60px;
+            color: white;
         }
         
         @keyframes float {
@@ -77,24 +138,24 @@
         }
         
         .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
+            font-size: 4rem;
+            font-weight: 800;
             color: #fff;
             margin-bottom: 0.5rem;
-            letter-spacing: -1px;
+            letter-spacing: -2px;
         }
         
         .hero .subtitle {
-            font-size: 1.5rem;
-            color: #FF2442;
+            font-size: 1.8rem;
+            color: var(--primary);
             font-weight: 600;
             margin-bottom: 1rem;
         }
         
         .hero .tagline {
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             color: rgba(255,255,255,0.8);
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
             font-style: italic;
         }
         
@@ -106,7 +167,7 @@
         }
         
         .btn {
-            padding: 1rem 2rem;
+            padding: 1rem 2.5rem;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
@@ -114,17 +175,22 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            font-size: 1.05rem;
+        }
+        
+        .btn i {
+            font-size: 1.1rem;
         }
         
         .btn-primary {
             background: var(--gradient);
             color: white;
-            box-shadow: 0 4px 15px rgba(255,36,66,0.4);
+            box-shadow: 0 4px 20px rgba(255,36,66,0.4);
         }
         
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255,36,66,0.6);
+            box-shadow: 0 8px 30px rgba(255,36,66,0.6);
         }
         
         .btn-secondary {
@@ -140,7 +206,7 @@
         
         /* Features Section */
         .features {
-            padding: 6rem 2rem;
+            padding: 8rem 2rem;
             background: var(--light);
         }
         
@@ -151,103 +217,124 @@
         
         .section-title {
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: 5rem;
         }
         
         .section-title h2 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             color: var(--dark);
             margin-bottom: 1rem;
+            font-weight: 700;
         }
         
         .section-title p {
             color: var(--gray);
-            font-size: 1.1rem;
+            font-size: 1.2rem;
         }
         
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
         }
         
         .feature-card {
             background: white;
-            padding: 2.5rem;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
             transition: all 0.3s ease;
             text-align: center;
+            border: 1px solid rgba(0,0,0,0.05);
         }
         
         .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
         }
         
         .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+            width: 80px;
+            height: 80px;
+            background: var(--gradient);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 8px 30px rgba(255,36,66,0.3);
+        }
+        
+        .feature-icon i {
+            font-size: 36px;
+            color: white;
         }
         
         .feature-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
             color: var(--dark);
+            font-weight: 600;
         }
         
         .feature-card p {
             color: var(--gray);
-            font-size: 0.95rem;
+            font-size: 1rem;
+            line-height: 1.7;
         }
         
         /* How It Works */
         .how-it-works {
-            padding: 6rem 2rem;
+            padding: 8rem 2rem;
             background: white;
         }
         
         .steps {
             display: flex;
             justify-content: space-between;
-            gap: 2rem;
+            gap: 3rem;
             flex-wrap: wrap;
         }
         
         .step {
             flex: 1;
-            min-width: 250px;
+            min-width: 280px;
             text-align: center;
             position: relative;
+            padding: 2rem;
         }
         
         .step-number {
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             background: var(--gradient);
             color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
             margin: 0 auto 1.5rem;
+            box-shadow: 0 8px 30px rgba(255,36,66,0.3);
         }
         
         .step h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            color: var(--dark);
+            font-weight: 600;
         }
         
         .step p {
             color: var(--gray);
-            font-size: 0.95rem;
+            font-size: 1rem;
+            line-height: 1.7;
         }
         
         /* Code Preview */
         .code-preview {
-            padding: 6rem 2rem;
+            padding: 8rem 2rem;
             background: var(--dark);
             color: white;
         }
@@ -262,23 +349,24 @@
         
         .code-block {
             background: #0d1117;
-            border-radius: 16px;
-            padding: 2rem;
-            max-width: 800px;
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 850px;
             margin: 0 auto;
             overflow-x: auto;
             border: 1px solid #30363d;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
         
         .code-header {
             display: flex;
             gap: 0.5rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
         
         .code-dot {
-            width: 12px;
-            height: 12px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
         }
         
@@ -288,9 +376,9 @@
         
         pre {
             margin: 0;
-            font-family: 'Fira Code', 'Monaco', monospace;
-            font-size: 0.9rem;
-            line-height: 1.6;
+            font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+            font-size: 0.95rem;
+            line-height: 1.7;
         }
         
         code {
@@ -304,7 +392,7 @@
         
         /* Stats */
         .stats {
-            padding: 4rem 2rem;
+            padding: 6rem 2rem;
             background: var(--gradient);
             color: white;
         }
@@ -312,81 +400,196 @@
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
+            gap: 3rem;
             text-align: center;
         }
         
-        .stat h3 {
+        .stat i {
             font-size: 3rem;
-            font-weight: 700;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+        
+        .stat h3 {
+            font-size: 3.5rem;
+            font-weight: 800;
             margin-bottom: 0.5rem;
         }
         
         .stat p {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             opacity: 0.9;
+        }
+        
+        /* Download Section */
+        .download {
+            padding: 8rem 2rem;
+            background: var(--light);
+            text-align: center;
+        }
+        
+        .download-card {
+            background: white;
+            border-radius: 24px;
+            padding: 4rem 3rem;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .download-card i {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .download-card h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .download-card p {
+            color: var(--gray);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+        
+        .version-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .version-info span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+        
+        .version-info i {
+            font-size: 1rem;
+            color: var(--primary);
         }
         
         /* Footer */
         footer {
-            padding: 3rem 2rem;
+            padding: 4rem 2rem;
             background: var(--dark);
             color: white;
             text-align: center;
         }
         
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .footer-logo i {
+            color: var(--primary);
+        }
+        
         footer p {
             opacity: 0.7;
+            margin-bottom: 0.5rem;
         }
         
-        .github-link {
-            display: inline-flex;
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
             align-items: center;
-            gap: 0.5rem;
+            justify-content: center;
             color: white;
             text-decoration: none;
-            margin-top: 1rem;
-            padding: 0.75rem 1.5rem;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50px;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
+            font-size: 1.3rem;
         }
         
-        .github-link:hover {
-            background: rgba(255,255,255,0.2);
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
         }
         
         /* Responsive */
         @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
             }
             
             .hero .subtitle {
-                font-size: 1.2rem;
+                font-size: 1.4rem;
             }
             
             .section-title h2 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             
             .steps {
                 flex-direction: column;
             }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="nav-logo">
+            <i class="fas fa-crosshairs"></i>
+            <span>红书猎手</span>
+        </a>
+        <div class="nav-links">
+            <a href="#features">功能</a>
+            <a href="#how-it-works">使用</a>
+            <a href="#download">下载</a>
+            <a href="https://github.com/linux503/redbook-kol-hunter" target="_blank">GitHub</a>
+        </div>
+    </nav>
+
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <div class="logo">🎯</div>
+            <div class="logo-icon">
+                <i class="fas fa-crosshairs"></i>
+            </div>
             <h1>红书猎手</h1>
             <p class="subtitle">RedBook Hunter</p>
             <p class="tagline">"让优质KOL无处遁形"</p>
             <div class="cta-buttons">
-                <a href="#features" class="btn btn-primary">开始使用</a>
-                <a href="https://github.com/yourusername/redbook-hunter" class="btn btn-secondary" target="_blank">GitHub</a>
+                <a href="#download" class="btn btn-primary">
+                    <i class="fas fa-download"></i>
+                    立即下载
+                </a>
+                <a href="https://github.com/linux503/redbook-kol-hunter" class="btn btn-secondary" target="_blank">
+                    <i class="fab fa-github"></i>
+                    GitHub
+                </a>
             </div>
         </div>
     </section>
@@ -400,32 +603,44 @@
             </div>
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
                     <h3>极速采集</h3>
                     <p>1分钟提取100条KOL数据，支持批量翻页采集，最高可提取400+条</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
+                    <div class="feature-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
                     <h3>精准数据</h3>
                     <p>粉丝数、阅读中位数、互动率、报价等核心数据一网打尽</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">📊</div>
+                    <div class="feature-icon">
+                        <i class="fas fa-file-export"></i>
+                    </div>
                     <h3>多格式导出</h3>
                     <p>支持 JSON、CSV、Markdown 三种格式，满足不同场景需求</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🔗</div>
+                    <div class="feature-icon">
+                        <i class="fas fa-external-link-alt"></i>
+                    </div>
                     <h3>一键直达</h3>
                     <p>自动生成小红书搜索链接，快速查看KOL主页和笔记</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🔄</div>
+                    <div class="feature-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
                     <h3>断点续传</h3>
                     <p>支持分页保存，采集中断后可随时继续，不丢失进度</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🛡️</div>
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
                     <h3>安全合规</h3>
                     <p>本地运行，数据不上传云端，保护您的商业机密</p>
                 </div>
@@ -434,7 +649,7 @@
     </section>
 
     <!-- How It Works -->
-    <section class="how-it-works">
+    <section class="how-it-works" id="how-it-works">
         <div class="container">
             <div class="section-title">
                 <h2>使用流程</h2>
@@ -507,20 +722,44 @@ console.<span class="function">log</span>(<span class="string">`成功提取 ${k
         <div class="container">
             <div class="stats-grid">
                 <div class="stat">
+                    <i class="fas fa-code"></i>
                     <h3>100+</h3>
                     <p>行核心代码</p>
                 </div>
                 <div class="stat">
+                    <i class="fas fa-layer-group"></i>
                     <h3>4</h3>
                     <p>种使用方式</p>
                 </div>
                 <div class="stat">
+                    <i class="fas fa-file-alt"></i>
                     <h3>3</h3>
                     <p>种导出格式</p>
                 </div>
                 <div class="stat">
+                    <i class="fas fa-infinity"></i>
                     <h3>∞</h3>
                     <p>可能的应用场景</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section class="download" id="download">
+        <div class="container">
+            <div class="download-card">
+                <i class="fas fa-download"></i>
+                <h3>立即开始使用</h3>
+                <p>下载红书猎手，开启高效KOL筛选之旅</p>
+                <a href="https://github.com/linux503/redbook-kol-hunter/releases/latest" class="btn btn-primary" target="_blank">
+                    <i class="fas fa-download"></i>
+                    下载最新版本
+                </a>
+                <div class="version-info">
+                    <span><i class="fas fa-tag"></i> v1.0.0</span>
+                    <span><i class="fas fa-calendar"></i> 2026-03-30</span>
+                    <span><i class="fab fa-github"></i> 开源免费</span>
                 </div>
             </div>
         </div>
@@ -529,14 +768,23 @@ console.<span class="function">log</span>(<span class="string">`成功提取 ${k
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p>© 2026 红书猎手 RedBook Hunter. All rights reserved.</p>
-            <p>Made with ❤️ for KOL Marketing</p>
-            <a href="https://github.com/yourusername/redbook-hunter" class="github-link" target="_blank">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                </svg>
-                Star on GitHub
-            </a>
+            <div class="footer-logo">
+                <i class="fas fa-crosshairs"></i>
+                <span>红书猎手</span>
+            </div>
+            <p>© 2026 RedBook Hunter. All rights reserved.</p>
+            <p>Made with <i class="fas fa-heart" style="color: var(--primary);"></i> for KOL Marketing</p>
+            <div class="social-links">
+                <a href="https://github.com/linux503/redbook-kol-hunter" target="_blank" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="#" title="Telegram">
+                    <i class="fab fa-telegram"></i>
+                </a>
+                <a href="#" title="Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
         </div>
     </footer>
 
