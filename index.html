@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>红书猎手 RedBook Hunter - 精准捕获小红书达人</title>
+    <meta name="description" content="红书猎手 - 小红书蒲公英KOL智能采集工具，一键采集，轻松筛选，让优质KOL无处遁形">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF2442;
+            --primary-dark: #E0203C;
+            --secondary: #00B96B;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --gradient: linear-gradient(135deg, #FF2442 0%, #FF6B6B 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: #fff;
+            overflow-x: hidden;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,36,66,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+            padding: 2rem;
+            max-width: 900px;
+        }
+        
+        .logo {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+        }
+        
+        .hero .subtitle {
+            font-size: 1.5rem;
+            color: #FF2442;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .hero .tagline {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255,36,66,0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255,36,66,0.6);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.5);
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 6rem 2rem;
+            background: var(--light);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .feature-card p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+        
+        /* How It Works */
+        .how-it-works {
+            padding: 6rem 2rem;
+            background: white;
+        }
+        
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
+        }
+        
+        .step h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .step p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+        
+        /* Code Preview */
+        .code-preview {
+            padding: 6rem 2rem;
+            background: var(--dark);
+            color: white;
+        }
+        
+        .code-preview .section-title h2 {
+            color: white;
+        }
+        
+        .code-preview .section-title p {
+            color: rgba(255,255,255,0.7);
+        }
+        
+        .code-block {
+            background: #0d1117;
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            overflow-x: auto;
+            border: 1px solid #30363d;
+        }
+        
+        .code-header {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .code-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .code-dot.red { background: #ff5f56; }
+        .code-dot.yellow { background: #ffbd2e; }
+        .code-dot.green { background: #27c93f; }
+        
+        pre {
+            margin: 0;
+            font-family: 'Fira Code', 'Monaco', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        code {
+            color: #e6edf3;
+        }
+        
+        .comment { color: #8b949e; }
+        .keyword { color: #ff7b72; }
+        .string { color: #a5d6ff; }
+        .function { color: #d2a8ff; }
+        
+        /* Stats */
+        .stats {
+            padding: 4rem 2rem;
+            background: var(--gradient);
+            color: white;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+        
+        .stat h3 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 3rem 2rem;
+            background: var(--dark);
+            color: white;
+            text-align: center;
+        }
+        
+        footer p {
+            opacity: 0.7;
+        }
+        
+        .github-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            text-decoration: none;
+            margin-top: 1rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+        
+        .github-link:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .steps {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="logo">🎯</div>
+            <h1>红书猎手</h1>
+            <p class="subtitle">RedBook Hunter</p>
+            <p class="tagline">"让优质KOL无处遁形"</p>
+            <div class="cta-buttons">
+                <a href="#features" class="btn btn-primary">开始使用</a>
+                <a href="https://github.com/yourusername/redbook-hunter" class="btn btn-secondary" target="_blank">GitHub</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>核心功能</h2>
+                <p>精准捕获小红书达人，数据驱动营销决策</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>极速采集</h3>
+                    <p>1分钟提取100条KOL数据，支持批量翻页采集，最高可提取400+条</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>精准数据</h3>
+                    <p>粉丝数、阅读中位数、互动率、报价等核心数据一网打尽</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>多格式导出</h3>
+                    <p>支持 JSON、CSV、Markdown 三种格式，满足不同场景需求</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔗</div>
+                    <h3>一键直达</h3>
+                    <p>自动生成小红书搜索链接，快速查看KOL主页和笔记</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>断点续传</h3>
+                    <p>支持分页保存，采集中断后可随时继续，不丢失进度</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>安全合规</h3>
+                    <p>本地运行，数据不上传云端，保护您的商业机密</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>使用流程</h2>
+                <p>简单三步，轻松上手</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>登录平台</h3>
+                    <p>访问小红书蒲公英平台，进入KOL列表页</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>运行脚本</h3>
+                    <p>复制脚本到浏览器控制台或运行Python程序</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>获取数据</h3>
+                    <p>自动下载JSON/CSV文件，开始筛选优质KOL</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Code Preview -->
+    <section class="code-preview">
+        <div class="container">
+            <div class="section-title">
+                <h2>代码示例</h2>
+                <p>简洁优雅的API设计，几行代码即可开始采集</p>
+            </div>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-dot red"></span>
+                    <span class="code-dot yellow"></span>
+                    <span class="code-dot green"></span>
+                </div>
+                <pre><code><span class="comment">// 浏览器控制台脚本 - 一键提取当前页KOL数据</span>
+<span class="keyword">const</span> <span class="function">extractKOL</span> = () => {
+  <span class="keyword">const</span> rows = document.<span class="function">querySelectorAll</span>(<span class="string">'table tbody tr'</span>);
+  <span class="keyword">const</span> data = [];
+  
+  rows.<span class="function">forEach</span>(row => {
+    <span class="keyword">const</span> cells = row.<span class="function">querySelectorAll</span>(<span class="string">'td'</span>);
+    <span class="keyword">if</span> (cells.length >= 6) {
+      data.<span class="function">push</span>({
+        name: cells[0].textContent.<span class="function">trim</span>(),
+        location: cells[0].textContent.<span class="function">match</span>(<span class="string">/[\u4e00-\u9fa5]{2,3}\s+[\u4e00-\u9fa5]{2,3}/</span>)?.[0] || <span class="string">''</span>,
+        followers: cells[2].textContent.<span class="function">trim</span>(),
+        avgViews: cells[3].textContent.<span class="function">trim</span>(),
+        avgInteractions: cells[4].textContent.<span class="function">trim</span>(),
+        price: cells[5].textContent.<span class="function">trim</span>()
+      });
+    }
+  });
+  
+  <span class="keyword">return</span> data;
+};
+
+<span class="comment">// 执行提取</span>
+<span class="keyword">const</span> kolData = <span class="function">extractKOL</span>();
+console.<span class="function">log</span>(<span class="string">`成功提取 ${kolData.length} 条KOL数据`</span>);</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat">
+                    <h3>100+</h3>
+                    <p>行核心代码</p>
+                </div>
+                <div class="stat">
+                    <h3>4</h3>
+                    <p>种使用方式</p>
+                </div>
+                <div class="stat">
+                    <h3>3</h3>
+                    <p>种导出格式</p>
+                </div>
+                <div class="stat">
+                    <h3>∞</h3>
+                    <p>可能的应用场景</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2026 红书猎手 RedBook Hunter. All rights reserved.</p>
+            <p>Made with ❤️ for KOL Marketing</p>
+            <a href="https://github.com/yourusername/redbook-hunter" class="github-link" target="_blank">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                Star on GitHub
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
